@@ -1,18 +1,13 @@
-# Manage password daatbase and online users for ocserv
+# Manage password database and online users for ocserv
 
 This solution assume deploy on same server with ocserv
 Use basic auth to access web interface. Password for authorization store in passwd file in clear text (TODO rewrite to use bcrypt)
 
 ## usage
 
-```
-% ./ocserv-admin -h
-Usage of ./ocserv-admin:
-  -ocpasswd string
-	ocserv password file (default "/etc/ocserv/ocpasswd")
-  -passwd string
-	local auth file (default "passwd")
-```
+Open browser and point to http://localhost
+
+Can add/edit users, check online statistic and disconnect someone.
 
 ## build
 ```
@@ -23,6 +18,18 @@ buildah build -t ocserv-admin:`cat .tag`
 ```
 podman run -d --restart always -p 80:80 -v /etc/ocserv/ocpasswd:/app/ocpasswd --name ocserv-admin localhost/ocserv-admin:`cat .tag`
 ```
+
+or without docker/podman
+
+```
+% ./ocserv-admin -h
+Usage of ./ocserv-admin:
+  -ocpasswd string
+	ocserv password file (default "/etc/ocserv/ocpasswd")
+  -passwd string
+	local auth file (default "passwd")
+```
+
 
 ## online users
 ```
