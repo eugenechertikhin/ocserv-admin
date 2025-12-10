@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>VPN admin interface</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        max-width: 98%;
+        margin: 0 auto;
+        padding: 20px;
+        background-color: #f5f5f5;
+      }
+      .container {
+        background: white;
+        padding: 30px;
+        border-radius: 10px;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+      }
+      h1 {
+        color: #333;
+        text-align: center;
+        margin-bottom: 30px;
+      }
+
+      td {
+        position: relative;
+        text-align: center;
+        padding: 0.5em 0;
+        width: 100px;
+      }
+
+      table,
+      th,
+      td {
+        border: 1px solid rgba(0, 0, 0, 0.5);
+      }
+      table {
+        border-collapse: collapse;
+      }
+
+      .rec {
+        border: 1px solid #ddd;
+        padding: 15px;
+        margin: 10px 0;
+        border-radius: 5px;
+      }
+      .rec-name {
+        font-size: 1.2em;
+        font-weight: bold;
+        color: #2c3e50;
+      }
+      .rec-info {
+        margin: 5px 0;
+        color: #000;
+      }
+      .no-rec {
+        text-align: center;
+        background: #fafafa;
+      }
+
+      thead td {
+        font-size: 14px;
+        cursor: pointer;
+        background: #e6e6e6;
+        position: relative;
+        font-weight: 700;
+      }
+
+      thead td:hover {
+        text-decoration: underline;
+      }
+
+    </style>
+  </head>
+  <body>
+
+    <div class="container">
+      <h1>User database</h1>
+      {{if .BaseRecords}}
+      <div class="table-container">
+        <table border="0" width="100%">
+          <thead>
+            <tr class="no-cars">
+              <td class="rec-name">
+                  Login
+              </td>
+              <td class="rec-name">
+                  Group
+              </td>
+              <td><a href="#">Add</a></td>
+            </tr>
+          </thead>
+          {{range .BaseRecords}}
+            <tr class="rec">
+              <td class="rec-info">{{.User}}</td>
+              <td class="rec-info">{{.Group}}</td>
+              <td><a href="#">block</a></td>
+            </tr>
+          {{end}}
+          </tbody>
+        </table>
+      </div>
+      {{else}}
+      <div class="no-rec">No users in database</div>
+      {{end}}
+    </div>
+
+    <div class="container">
+      <h1>Authorized users</h1>
+      {{if .OnlineRecords}}
+      <div class="table-container">
+        <table border="0" width="100%">
+          <thead>
+            <tr class="no-cars">
+              <td class="rec-name">
+                  Login
+              </td>
+              <td class="rec-name">
+                  IP
+              </td>
+              <td class="rec-name">
+                  Int IP
+              </td>
+              <td class="rec-name">
+                  Time
+              </td>
+              <td>
+                <div>&nbsp;</div>
+              </td>
+              </tr>
+              </thead>
+           {{range .OnlineRecords}}
+            <tr class="rec">
+              <td class="rec-info">{{.User}}</td>
+              <td class="rec-info">{{.ExtIp}}</td>
+              <td class="rec-info">{{.IntIp}}</td>
+              <td class="rec-info">{{.Since}}</td>
+              <td class="rec-info"><a href="?{{.Id}}">detail</a> <a href="?{{.Id}}">disconnect</a></td>
+            </tr>
+            {{end}}
+          </tbody>
+        </table>
+      </div>
+      {{else}}
+      <div class="no-rec">No connected users</div>
+      {{end}}
+    </div>
+
+  </body>
+</html>
